@@ -1,10 +1,11 @@
-import GroupTable from "@/components/groups/group-table"
+import CreateGroupModal from "@/components/groups/create-group-modal";
+import { Box } from "@mui/material";
+
 
 export default async function DashboardPage() {
   return (
-    <div>
-      <h2>Your Groups</h2>
-      <GroupTable />
-    </div>
+    <Box>
+      <CreateGroupModal/>
+    </Box>
   );
 }

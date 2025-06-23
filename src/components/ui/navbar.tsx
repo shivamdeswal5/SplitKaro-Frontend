@@ -4,11 +4,16 @@ import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
 import Link from "next/link";
 import LogoutButton from "@/components/auth/logout-button";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
+interface AuthState {
+  isAuthenticated: boolean;
+}
 
+interface StateWithAuth {
+  auth: AuthState;
+}
 
 export default function Navbar() {
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const isAuthenticated = useSelector((state: StateWithAuth) => state.auth.isAuthenticated);
 
   return (
     <AppBar position="static">
