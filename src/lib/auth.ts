@@ -12,7 +12,7 @@ export async function getCurrentUser() {
       userId: string;
       email: string;
     };
-    return decoded;
+    return decoded.userId as string;
   } catch {
     return null;
   }

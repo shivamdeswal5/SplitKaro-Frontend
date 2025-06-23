@@ -1,10 +1,11 @@
-// components/auth/SignUpForm.tsx
+'use client'
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signupSchema } from '@/lib/schema/signup-schema';
 import { TextField, Button, Box } from '@mui/material';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 import api from '@/lib/api';
 
 type SignupFormData = {
@@ -37,7 +38,8 @@ export default function SignUpForm() {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+
       <TextField
         label="First Name"
         fullWidth
@@ -74,6 +76,7 @@ export default function SignUpForm() {
       <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
         Sign Up
       </Button>
+      
     </Box>
   );
 }

@@ -6,10 +6,14 @@ import { loginSchema, LoginFormData } from '@/lib/schema/login-schema';
 import { TextField, Button, Box } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import api from '@/lib/api';
+import { login } from '@/store/slices/auth-slice';
 
 export default function LoginForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
+
 
   const {
     register,
@@ -17,16 +21,13 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema) as any, 
-    defaultValues: {
-      email: '',
-      password: '',
-      otp: '',
-    },
   });
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      await api.post('/auth/login', data);
+      const response = await api.post('/auth/login', data);
+      console.log("Response in login: ",response.data.user);
+      dispatch(login(response.data.user));
       toast.success('Login successful');
       router.push('/dashboard');
     } catch (err: any) {
@@ -36,7 +37,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} >
       <TextField
         label="Email"
         fullWidth

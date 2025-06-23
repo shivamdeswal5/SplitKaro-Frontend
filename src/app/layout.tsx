@@ -5,6 +5,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "@/components/ui/navbar";
+import ReduxProvider from "@/store/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
        <AppRouterCacheProvider>
-        <Navbar/>
+        <ReduxProvider>
+          <Navbar/>
         {children}
          <ToastContainer position="top-right" autoClose={3000} />
+        </ReduxProvider>
        </AppRouterCacheProvider>
         
       </body>
