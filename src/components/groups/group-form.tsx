@@ -38,6 +38,7 @@ export default function GroupForm({ onSuccess }: GroupFormProps) {
     <Box component="form" onSubmit={handleSubmit(onSubmit)} mt={1}>
       <TextField
         label="Group Name"
+        variant="filled"
         fullWidth
         margin="normal"
         {...register('name', { required: 'Group name is required' })}

@@ -1,14 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchGroups } from './group-api';
+import { fetchGroups, deleteGroup, updateGroup } from './group-api';
+import { Group } from '@/lib/types/GroupType';
+
+interface GroupsState {
+  data: Group[];
+  loading: boolean;
+  error: string | null;
+  total: number;
+}
+
+const initialState: GroupsState = {
+  data: [],
+  loading: false,
+  error: null,
+  total: 0,
+};
 
 const groupsSlice = createSlice({
   name: 'groups',
-  initialState: {
-    data: [],
-    loading: false,
-    error: null as string | null,
-    total: 0,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -23,7 +33,17 @@ const groupsSlice = createSlice({
       })
       .addCase(fetchGroups.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload || 'Failed to fetch groups';
+      })
+      .addCase(deleteGroup.fulfilled, (state, action) => {
+        state.data = state.data.filter((g) => g.id !== action.payload);
+        state.total -= 1;
+      })
+      .addCase(updateGroup.fulfilled, (state, action) => {
+        const index = state.data.findIndex((g) => g.id === action.payload.id);
+        if (index !== -1) {
+          state.data[index] = action.payload;
+        }
       });
   },
 });

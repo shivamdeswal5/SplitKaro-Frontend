@@ -40,16 +40,19 @@ export default function LoginForm() {
     <Box component="form" onSubmit={handleSubmit(onSubmit)} >
       <TextField
         label="Email"
+        variant="filled"
         fullWidth
         margin="normal"
         {...register('email')}
         error={!!errors.email}
         helperText={errors.email?.message}
+      
       />
       <TextField
         label="Password"
         type="password"
         fullWidth
+        variant="filled"
         margin="normal"
         {...register('password')}
         error={!!errors.password}
@@ -58,6 +61,7 @@ export default function LoginForm() {
       <TextField
         label="OTP (optional)"
         fullWidth
+        variant="filled"
         margin="normal"
         {...register('otp')}
         error={!!errors.otp}
