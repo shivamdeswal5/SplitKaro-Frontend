@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,6 +22,8 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { deleteExpense } from '@/store/expense/expense-api';
 import { fetchGroupById } from '@/store/groups/group-api';
+import { useRouter } from 'next/navigation';
+import { Button } from '@mui/material';
 
 interface Props {
   group: Group;
@@ -32,7 +33,7 @@ export default function ExpensesList({ group }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [editingExpenseId, setEditingExpenseId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
-
+  const router  = useRouter();
   const handleEdit = (expenseId: string) => setEditingExpenseId(expenseId);
   const handleDeleteClick = (expenseId: string) => setConfirmDeleteId(expenseId);
   const handleCloseEdit = () => setEditingExpenseId(null);
@@ -55,6 +56,10 @@ export default function ExpensesList({ group }: Props) {
     handleCloseEdit();
   };
 
+  const handleClick: (expenseId: string) => void = (expenseId: string) => {
+    router.push(`/expense/${expenseId}`);
+  };
+
   return (
     <>
       {group.expenses.length === 0 ? (
@@ -64,6 +69,8 @@ export default function ExpensesList({ group }: Props) {
           {group.expenses.map((expense) => (
             <ListItem
               key={expense.id}
+              onClick={() => handleClick(expense.id)}
+              sx={{cursor:'pointer'}}
               secondaryAction={
                 <>
                   <IconButton onClick={() => handleEdit(expense.id)}>

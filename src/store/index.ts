@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/auth-slice';
 import groupsReducer from './groups/group-slice'
+import expenseReducer from './expense/expense-slice'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth: authReducer,
     groups: groupsReducer,
+    expense: expenseReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

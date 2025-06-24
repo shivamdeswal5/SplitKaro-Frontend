@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "@/lib/api";
-import { CreateExpensePayload } from "@/lib/types/ExpenseType";
+import { CreateExpensePayload} from "@/lib/types/ExpenseType";
+import { Expense} from "@/lib/types/ExpenseTypes";
 
 export const createExpense = createAsyncThunk<
   any,
@@ -46,3 +47,18 @@ export const updateExpense = createAsyncThunk<
     );
   }
 })
+
+export const fetchExpenseById = createAsyncThunk<
+  Expense,
+  string,
+  { rejectValue: string }
+>('expenses/fetchById', async (expenseId, thunkAPI) => {
+  try {
+    const res = await api.get(`/expenses/${expenseId}`);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || 'Failed to fetch expense details'
+    );
+  }
+});
