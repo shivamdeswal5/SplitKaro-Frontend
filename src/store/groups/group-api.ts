@@ -61,3 +61,18 @@ export const updateGroup = createAsyncThunk<
     );
   }
 });
+
+export const fetchGroupById = createAsyncThunk<
+  Group,
+  string,
+  { rejectValue: string }
+>("groups/fetchById", async (groupId, thunkAPI) => {
+  try {
+    const res = await api.get(`/groups/${groupId}`);
+    return res.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || "Failed to fetch group"
+    );
+  }
+});

@@ -17,9 +17,12 @@ import { fetchGroups } from '@/store/groups/group-api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store';
 import GroupRowActions from './group-row-action';
+import { useRouter } from 'next/navigation';
 
 export default function GroupTable() {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
   const { data: groups, loading, total } = useSelector((state: RootState) => state.groups);
   const userId = useSelector((state: RootState) => state.auth.user?.id) as string;
 
@@ -31,6 +34,10 @@ export default function GroupTable() {
       dispatch(fetchGroups({ userId, page: page + 1, limit: rowsPerPage }));
     }
   }, [dispatch, userId, page]);
+
+  const handleRowClick = (groupId: string) => {
+    router.push(`/groups/${groupId}`);
+  };
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -55,7 +62,12 @@ export default function GroupTable() {
               </TableHead>
               <TableBody>
                 {groups.map((group, index) => (
-                  <TableRow key={group.id}>
+                  <TableRow
+                    key={group.id}
+                    hover
+                    onClick={() => handleRowClick(group.id)}
+                    sx={{ cursor: 'pointer' }}
+                  >
                     <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                     <TableCell>{group.name}</TableCell>
                     <TableCell>
@@ -64,7 +76,7 @@ export default function GroupTable() {
                     <TableCell>
                       {new Date(group.createdAt).toLocaleString()}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="right" onClick={(e) => e.stopPropagation()}>
                       <GroupRowActions group={group} />
                     </TableCell>
                   </TableRow>
