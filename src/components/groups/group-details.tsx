@@ -1,11 +1,10 @@
+"use client";
 
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store';
-import { fetchGroupById } from '@/store/groups/group-api';
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { fetchGroupById } from "@/store/groups/group-api";
 import {
   Box,
   Typography,
@@ -19,19 +18,22 @@ import {
   DialogTitle,
   DialogContent,
   IconButton,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import CreateExpenseForm from '@/components/expenses/create-expense-form';
-import ExpensesList from '@/components/expenses/expenses-list';
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import CreateExpenseForm from "@/components/expenses/create-expense-form";
+import ExpensesList from "@/components/expenses/expenses-list";
+import GroupBalances from "./group-balance";
 
 export default function GroupDetailsPage() {
   const { id: groupId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const { currentGroup: group, loading, error } = useSelector(
-    (state: RootState) => state.groups
-  );
+  const {
+    currentGroup: group,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.groups);
 
-  console.log("Current Group In Group Details: ", group)
+  console.log("Current Group In Group Details: ", group);
 
   const [open, setOpen] = useState(false);
 
@@ -87,7 +89,7 @@ export default function GroupDetailsPage() {
       </Box>
 
       <Dialog open={open} onClose={handleDialogClose} fullWidth maxWidth="sm">
-        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <DialogTitle sx={{ display: "flex", justifyContent: "space-between" }}>
           Create Expense
           <IconButton onClick={handleDialogClose}>
             <CloseIcon />
@@ -97,7 +99,11 @@ export default function GroupDetailsPage() {
           <CreateExpenseForm group={group} onSuccess={handleExpenseCreated} />
         </DialogContent>
       </Dialog>
-      
+
+      <GroupBalances
+        groupId={group.id}
+        members={group.members.map((m) => m.user)}
+      />
     </Box>
   );
 }

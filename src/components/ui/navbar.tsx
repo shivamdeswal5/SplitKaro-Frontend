@@ -10,6 +10,7 @@ import {
   Badge,
   Menu,
   MenuItem,
+  Stack,
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Link from 'next/link';
@@ -57,6 +58,14 @@ export default function Navbar() {
     handleClose();
   };
 
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+  };
+
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -82,21 +91,29 @@ export default function Navbar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                {notifications.length === 0 && (
+                {notifications.length === 0 ? (
                   <MenuItem disabled>No notifications</MenuItem>
+                ) : (
+                  notifications.map((notification) => (
+                    <MenuItem
+                      key={notification.id}
+                      onClick={() => handleMarkRead(notification.id)}
+                      sx={{
+                        display: 'block',
+                        whiteSpace: 'normal',
+                        opacity: notification.isRead ? 0.5 : 1,
+                        fontWeight: notification.isRead ? 'normal' : 'bold',
+                      }}
+                    >
+                      <Stack spacing={0.5}>
+                        <Typography>{notification.message}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {formatTimestamp(notification.createdAt)}
+                        </Typography>
+                      </Stack>
+                    </MenuItem>
+                  ))
                 )}
-                {notifications.map((notification) => (
-                  <MenuItem
-                    key={notification.id}
-                    onClick={() => handleMarkRead(notification.id)}
-                    sx={{
-                      opacity: notification.isRead ? 0.5 : 1,
-                      fontWeight: notification.isRead ? 'normal' : 'bold',
-                    }}
-                  >
-                    {notification.message}
-                  </MenuItem>
-                ))}
               </Menu>
             </>
           )}

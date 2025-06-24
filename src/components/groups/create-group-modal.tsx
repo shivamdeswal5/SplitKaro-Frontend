@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import GroupForm from './group-form';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const style = {
   position: 'absolute',
@@ -24,7 +25,11 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Create Group</Button>
+      <Button sx={{position:'absolute', right:'5rem', gap:'0.5rem'}}
+      onClick={handleOpen}>
+        Create Group
+        <AddCircleOutlineIcon/>
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

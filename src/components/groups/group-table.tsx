@@ -40,7 +40,7 @@ export default function GroupTable() {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: '90%', overflow: 'hidden', margin:'0 auto' }}>
       {loading ? (
         <CircularProgress sx={{ m: 4 }} />
       ) : groups.length === 0 ? (
@@ -49,7 +49,7 @@ export default function GroupTable() {
         </Typography>
       ) : (
         <>
-          <TableContainer>
+          <TableContainer >
             <Table>
               <TableHead>
                 <TableRow>

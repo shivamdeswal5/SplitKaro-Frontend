@@ -5,6 +5,7 @@ import expenseReducer from './expense/expense-slice'
 import notificationReducer from './notification/notification-slice'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import settlementReducer from './settlements/settlement-slice'
 
 const persistConfig = {
     key: 'root',
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     groups: groupsReducer,
     expense: expenseReducer,
     notification: notificationReducer,
+    settlements: settlementReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
