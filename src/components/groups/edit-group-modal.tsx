@@ -76,7 +76,7 @@ export default function EditGroupModal({ open, onClose, group }: EditGroupModalP
 
   const onSubmit = async (data: FormValues) => {
     try {
-      await api.patch(`/groups/${group.id}`, data);
+      await api.patch(`/groups/update-group/${group.id}`, data);
       toast.success('Group updated successfully');
       onClose();
     } catch (err: any) {

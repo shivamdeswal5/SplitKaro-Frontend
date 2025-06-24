@@ -24,7 +24,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button color="error" variant="outlined" onClick={handleLogout}>
+    <Button color="error" variant="contained" onClick={handleLogout}>
       Logout
     </Button>
   );

@@ -18,7 +18,7 @@ export default function GroupRowActions({ group }: { group: Group }) {
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this group?')) {
       try {
-        await dispatch(deleteGroup(group.id)).unwrap();
+        await dispatch(deleteGroup(group.id));
         toast.success('Group deleted');
       } catch (err: any) {
         toast.error(err || 'Failed to delete');

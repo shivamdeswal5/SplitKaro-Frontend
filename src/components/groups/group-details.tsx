@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -20,13 +21,17 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import CreateExpenseForm from '@/components/expenses/create-expense-form'; 
+import CreateExpenseForm from '@/components/expenses/create-expense-form';
+import ExpensesList from '@/components/expenses/expenses-list';
+
 export default function GroupDetailsPage() {
   const { id: groupId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const { currentGroup: group, loading, error } = useSelector(
     (state: RootState) => state.groups
   );
+
+  console.log("Current Group In Group Details: ", group)
 
   const [open, setOpen] = useState(false);
 
@@ -73,20 +78,7 @@ export default function GroupDetailsPage() {
       <Divider sx={{ my: 2 }} />
 
       <Typography variant="h6">Expenses</Typography>
-      {group.expenses.length === 0 ? (
-        <Typography>No expenses found</Typography>
-      ) : (
-        <List dense>
-          {group.expenses.map((expense) => (
-            <ListItem key={expense.id}>
-              <ListItemText
-                primary={expense.name}
-                secondary={`₹${expense.amount} — ${expense.createdBy?.firstName ?? ''}`}
-              />
-            </ListItem>
-          ))}
-        </List>
-      )}
+      <ExpensesList group={group} />
 
       <Box sx={{ mt: 3 }}>
         <Button variant="contained" onClick={handleDialogOpen}>
@@ -102,11 +94,10 @@ export default function GroupDetailsPage() {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          {group && (
-            <CreateExpenseForm group={group} onSuccess={handleExpenseCreated} />
-          )}
+          <CreateExpenseForm group={group} onSuccess={handleExpenseCreated} />
         </DialogContent>
       </Dialog>
+      
     </Box>
   );
 }

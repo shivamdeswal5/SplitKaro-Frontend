@@ -50,10 +50,10 @@ export default function GroupTable() {
       ) : (
         <>
           <TableContainer>
-            <Table stickyHeader>
+            <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>SN.</TableCell>
+                  <TableCell>Sn.</TableCell>
                   <TableCell>Group Name</TableCell>
                   <TableCell>Created By</TableCell>
                   <TableCell>Created At</TableCell>

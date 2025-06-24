@@ -1,6 +1,13 @@
-export interface SplitAmount {
-  userId: string;
+export interface Expense {
+  id: string;
+  name: string;
+  description?: string;
   amount: number;
+  reciptUrl?: string;
+  category?: { id: string; name: string };
+  members: { user: { id: string } }[];
+  createdBy?: { id: string; firstName: string; lastName: string };
+  groupId: string;
 }
 
 export interface CreateExpensePayload {
@@ -12,5 +19,4 @@ export interface CreateExpensePayload {
   createdById: string;
   categoryId: string;
   participantIds: string[];
-  splitAmounts?: SplitAmount[];
 }
