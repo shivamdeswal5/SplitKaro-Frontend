@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import {
   Box,
   Typography,
   CircularProgress,
   Paper,
   Divider,
-} from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store';
-import { fetchExpenseById } from '@/store/expense/expense-api';
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { fetchExpenseById } from "@/store/expense/expense-api";
 
 interface Props {
   expenseId: string;
@@ -46,7 +46,7 @@ export default function ExpenseDetails({ expenseId }: Props) {
       </Typography>
 
       <Typography variant="subtitle1" sx={{ mb: 1 }}>
-        Description: {expense.description || ''}
+        Description: {expense.description || ""}
       </Typography>
 
       <Typography variant="subtitle1" sx={{ mb: 1 }}>
@@ -77,13 +77,11 @@ export default function ExpenseDetails({ expenseId }: Props) {
         {expense.members.map((member) => (
           <Box key={member.id} sx={{ mb: 1 }}>
             <Typography>
-              {member.user.firstName} {member.user.lastName}: ₹
-              {member.amount}
+              {member.user.firstName} {member.user.lastName}: ₹{member.amount}
             </Typography>
           </Box>
         ))}
       </Paper>
-
       {expense.reciptUrl && (
         <Box sx={{ mt: 3 }}>
           <Typography variant="subtitle2" gutterBottom>
@@ -91,9 +89,6 @@ export default function ExpenseDetails({ expenseId }: Props) {
           </Typography>
           <a
             href={expense.reciptUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: '#1976d2' }}
           >
             {expense.reciptUrl}
           </a>

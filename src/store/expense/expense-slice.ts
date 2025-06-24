@@ -19,12 +19,6 @@ const expenseSlice = createSlice({
   name: 'expense',
   initialState,
   reducers: {
-    clearExpenseById: (state, action: { payload: string }) => {
-      const id = action.payload;
-      delete state.byId[id];
-      delete state.loading[id];
-      delete state.error[id];
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +40,4 @@ const expenseSlice = createSlice({
   },
 });
 
-export const { clearExpenseById } = expenseSlice.actions;
 export default expenseSlice.reducer;

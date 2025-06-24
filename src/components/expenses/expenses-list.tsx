@@ -1,7 +1,6 @@
+"use client";
 
-'use client';
-
-import { Group } from '@/lib/types/GroupType';
+import { Group } from "@/lib/types/GroupType";
 import {
   Typography,
   List,
@@ -12,18 +11,18 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
-import CreateExpenseForm from './create-expense-form';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store';
-import { deleteExpense } from '@/store/expense/expense-api';
-import { fetchGroupById } from '@/store/groups/group-api';
-import { useRouter } from 'next/navigation';
-import { Button } from '@mui/material';
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
+import CreateExpenseForm from "./create-expense-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
+import { deleteExpense } from "@/store/expense/expense-api";
+import { fetchGroupById } from "@/store/groups/group-api";
+import { useRouter } from "next/navigation";
+import { Button } from "@mui/material";
 
 interface Props {
   group: Group;
@@ -33,9 +32,10 @@ export default function ExpensesList({ group }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [editingExpenseId, setEditingExpenseId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
-  const router  = useRouter();
+  const router = useRouter();
   const handleEdit = (expenseId: string) => setEditingExpenseId(expenseId);
-  const handleDeleteClick = (expenseId: string) => setConfirmDeleteId(expenseId);
+  const handleDeleteClick = (expenseId: string) =>
+    setConfirmDeleteId(expenseId);
   const handleCloseEdit = () => setEditingExpenseId(null);
   const handleCloseDelete = () => setConfirmDeleteId(null);
 
@@ -70,13 +70,23 @@ export default function ExpensesList({ group }: Props) {
             <ListItem
               key={expense.id}
               onClick={() => handleClick(expense.id)}
-              sx={{cursor:'pointer'}}
+              sx={{ cursor: "pointer" }}
               secondaryAction={
                 <>
-                  <IconButton onClick={() => handleEdit(expense.id)}>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation(); 
+                      handleEdit(expense.id);
+                    }}
+                  >
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDeleteClick(expense.id)}>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteClick(expense.id);
+                    }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </>
@@ -91,10 +101,18 @@ export default function ExpensesList({ group }: Props) {
         </List>
       )}
 
-      <Dialog open={!!editingExpenseId} onClose={handleCloseEdit} fullWidth maxWidth="sm">
+      <Dialog
+        open={!!editingExpenseId}
+        onClose={handleCloseEdit}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle>
           Edit Expense
-          <IconButton onClick={handleCloseEdit} sx={{ position: 'absolute', right: 8, top: 8 }}>
+          <IconButton
+            onClick={handleCloseEdit}
+            sx={{ position: "absolute", right: 8, top: 8 }}
+          >
             <CloseIcon />
           </IconButton>
         </DialogTitle>
@@ -106,7 +124,9 @@ export default function ExpensesList({ group }: Props) {
               onSuccess={handleUpdateSuccess}
             />
           ) : (
-            <Typography color="error">Unable to load expense details.</Typography>
+            <Typography color="error">
+              Unable to load expense details.
+            </Typography>
           )}
         </DialogContent>
       </Dialog>
@@ -118,7 +138,11 @@ export default function ExpensesList({ group }: Props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDelete}>Cancel</Button>
-          <Button onClick={handleDeleteConfirmed} color="error" variant="contained">
+          <Button
+            onClick={handleDeleteConfirmed}
+            color="error"
+            variant="contained"
+          >
             Delete
           </Button>
         </DialogActions>
