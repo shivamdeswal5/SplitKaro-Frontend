@@ -19,4 +19,5 @@ export interface CreateExpensePayload {
   createdById: string;
   categoryId: string;
   participantIds: string[];
+   splitAmounts?: { userId: string; amount: number }[];
 }

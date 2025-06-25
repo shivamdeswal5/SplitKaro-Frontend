@@ -104,7 +104,6 @@ export default function EditGroupModal({ open, onClose, group }: EditGroupModalP
                   <TextField
                     {...field}
                     label="Group Name"
-                    variant="filled"
                     fullWidth
                   />
                 )}

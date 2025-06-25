@@ -157,7 +157,6 @@ export default function CreateExpenseForm({ group, onSuccess, expense }: Props) 
               required
               error={!!errors.name}
               helperText={errors.name?.message}
-              variant="filled"
               {...field}
             />
           )}
@@ -171,7 +170,6 @@ export default function CreateExpenseForm({ group, onSuccess, expense }: Props) 
               label="Description"
               fullWidth
               multiline
-              variant="filled"
               margin="normal"
               {...field}
             />
@@ -188,7 +186,6 @@ export default function CreateExpenseForm({ group, onSuccess, expense }: Props) 
               type="number"
               fullWidth
               required
-              variant="filled"
               margin="normal"
               error={!!errors.amount}
               helperText={errors.amount?.message}
@@ -204,7 +201,6 @@ export default function CreateExpenseForm({ group, onSuccess, expense }: Props) 
             <TextField
               label="Receipt URL (optional)"
               fullWidth
-              variant="filled"
               margin="normal"
               {...field}
             />
@@ -225,7 +221,6 @@ export default function CreateExpenseForm({ group, onSuccess, expense }: Props) 
                 label="Category"
                 select
                 fullWidth
-                variant="filled"
                 required
                 margin="normal"
                 error={!!errors.categoryId}

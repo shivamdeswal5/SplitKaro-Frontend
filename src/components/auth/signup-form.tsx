@@ -43,7 +43,6 @@ export default function SignUpForm() {
       <TextField
         label="First Name"
         fullWidth
-        variant="filled"
         margin="normal"
         {...register('firstName')}
         error={!!errors.firstName}
@@ -52,7 +51,6 @@ export default function SignUpForm() {
       <TextField
         label="Last Name"
         fullWidth
-        variant="filled"
         margin="normal"
         {...register('lastName')}
         error={!!errors.lastName}
@@ -61,7 +59,6 @@ export default function SignUpForm() {
       <TextField
         label="Email"
         fullWidth
-        variant="filled"
         margin="normal"
         {...register('email')}
         error={!!errors.email}
@@ -71,7 +68,6 @@ export default function SignUpForm() {
         label="Password"
         type="password"
         fullWidth
-        variant="filled"
         margin="normal"
         {...register('password')}
         error={!!errors.password}
